@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import getStoredState from "redux-persist/es/getStoredState";
 import { registerUserApi, loginUserApi, logoutUserApi, getUserApi } from "../../utils/mockApi";
 
 export const registerUser = createAsyncThunk(
@@ -39,12 +40,19 @@ export const logoutUser = createAsyncThunk(
 
 export const currentUser = createAsyncThunk(
     'currentUser',
-    async (userData, { rejectWithValue }) => {
+    async (_, thunkApi) => {
+        console.log('ok', thunkApi)
         try {
-            const data = await getUserApi(userData);
+            const state = thunkApi.getState();
+            const token = state.auth.token
+            if (token === null) {
+                return thunkApi.rejectWithValue()
+            }
+            const data = await getUserApi(token);
+            console.log(data)
             return data;
         } catch (error) {
-            return rejectWithValue(error)
+            return thunkApi.rejectWithValue(error)
         }
     }
 )

@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     token && dispatch(currentUser());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

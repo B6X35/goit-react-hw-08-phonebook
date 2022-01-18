@@ -79,6 +79,7 @@ export const getUserApi = async (token) => {
   try {
     setToken(token);
     const { data } = await axios.get(path.GET_CURRENT_USER);
+    console.log(data)
     return data;
   } catch (error) {
     throw error.message;

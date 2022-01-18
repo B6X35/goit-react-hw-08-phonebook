@@ -65,3 +65,12 @@
     -o-animation: none;
     animation: none;
     }
+
+.h1 {
+  font-size: 15px;
+  color: #fff;
+}
+
+.div {
+  display: flex;
+}
